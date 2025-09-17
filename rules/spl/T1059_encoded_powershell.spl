@@ -1,0 +1,14 @@
+| SPL Query: Encoded PowerShell Execution
+| ATT&CK: T1059.001 - Command and Scripting Interpreter: PowerShell
+| Triage: Decode the base64 payload, check parent process, check if user account should be running PS
+
+index=windows EventCode=4688 NewProcessName="*powershell.exe"
+| search CommandLine IN ("*-EncodedCommand*", "*-enc *", "* -EC *")
+| eval
+    user_risk=case(
+        Account="Administrator", "High",
+        match(Account, "svc_.*"), "High",
+        true(), "Medium"
+    )
+| table _time, ComputerName, Account, CommandLine, ParentProcessName, user_risk
+| sort - _time

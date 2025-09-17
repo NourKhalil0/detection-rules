@@ -1,0 +1,74 @@
+<svg viewBox="0 0 900 430" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">
+  <rect width="900" height="430" fill="#f4f6f8"/>
+
+  <!-- Row labels -->
+  <text x="108" y="72" font-size="12" font-weight="bold" fill="#222" text-anchor="end">Execution</text>
+  <text x="108" y="152" font-size="12" font-weight="bold" fill="#222" text-anchor="end">Credential</text>
+  <text x="108" y="166" font-size="12" font-weight="bold" fill="#222" text-anchor="end">Access</text>
+  <text x="108" y="232" font-size="12" font-weight="bold" fill="#222" text-anchor="end">Persistence</text>
+  <text x="108" y="305" font-size="12" font-weight="bold" fill="#222" text-anchor="end">Discovery</text>
+  <text x="108" y="378" font-size="12" font-weight="bold" fill="#222" text-anchor="end">Lateral</text>
+  <text x="108" y="392" font-size="12" font-weight="bold" fill="#222" text-anchor="end">Movement</text>
+
+  <!-- Dividers -->
+  <line x1="115" y1="50" x2="860" y2="50" stroke="#ccc" stroke-width="1"/>
+  <line x1="115" y1="115" x2="860" y2="115" stroke="#ccc" stroke-width="1"/>
+  <line x1="115" y1="195" x2="860" y2="195" stroke="#ccc" stroke-width="1"/>
+  <line x1="115" y1="265" x2="860" y2="265" stroke="#ccc" stroke-width="1"/>
+  <line x1="115" y1="340" x2="860" y2="340" stroke="#ccc" stroke-width="1"/>
+  <line x1="115" y1="415" x2="860" y2="415" stroke="#ccc" stroke-width="1"/>
+
+  <!-- Row 1: Execution -->
+  <rect x="120" y="57" width="200" height="50" fill="#1a5276" rx="2"/>
+  <text x="220" y="79" font-size="10" font-weight="bold" fill="white" text-anchor="middle">PowerShell Encoded Cmd</text>
+  <text x="220" y="93" font-size="9" fill="#aed6f1" text-anchor="middle">T1059.001 | Sigma + KQL + SPL</text>
+
+  <rect x="325" y="57" width="185" height="50" fill="#1a5276" rx="2"/>
+  <text x="417" y="79" font-size="10" font-weight="bold" fill="white" text-anchor="middle">Base64 PS via cmd.exe</text>
+  <text x="417" y="93" font-size="9" fill="#aed6f1" text-anchor="middle">T1027 | Sigma</text>
+
+  <rect x="515" y="57" width="185" height="50" fill="#2980b9" rx="2"/>
+  <text x="607" y="79" font-size="10" font-weight="bold" fill="white" text-anchor="middle">Unusual Parent for cmd.exe</text>
+  <text x="607" y="93" font-size="9" fill="#d6eaf8" text-anchor="middle">T1059.003 | Sigma</text>
+
+  <!-- Row 2: Credential Access -->
+  <rect x="120" y="122" width="255" height="65" fill="#1a5276" rx="2"/>
+  <text x="247" y="147" font-size="10" font-weight="bold" fill="white" text-anchor="middle">LSASS Memory Access</text>
+  <text x="247" y="161" font-size="9" fill="#aed6f1" text-anchor="middle">T1003.001 | Sigma + KQL</text>
+
+  <rect x="380" y="122" width="200" height="65" fill="#1a5276" rx="2"/>
+  <text x="480" y="147" font-size="10" font-weight="bold" fill="white" text-anchor="middle">Mimikatz Keywords</text>
+  <text x="480" y="161" font-size="9" fill="#aed6f1" text-anchor="middle">T1003 | Sigma</text>
+
+  <rect x="585" y="122" width="270" height="65" fill="#c0392b" rx="2"/>
+  <text x="720" y="147" font-size="10" font-weight="bold" fill="white" text-anchor="middle">Password Spraying</text>
+  <text x="720" y="161" font-size="9" fill="#fadbd8" text-anchor="middle">T1110.001 | Sigma + KQL + SPL</text>
+
+  <!-- Row 3: Persistence -->
+  <rect x="120" y="202" width="255" height="55" fill="#1a5276" rx="2"/>
+  <text x="247" y="224" font-size="10" font-weight="bold" fill="white" text-anchor="middle">Scheduled Task via schtasks</text>
+  <text x="247" y="238" font-size="9" fill="#aed6f1" text-anchor="middle">T1053.005 | Sigma + KQL</text>
+
+  <rect x="380" y="202" width="250" height="55" fill="#2980b9" rx="2"/>
+  <text x="505" y="224" font-size="10" font-weight="bold" fill="white" text-anchor="middle">Registry Run Key</text>
+  <text x="505" y="238" font-size="9" fill="#d6eaf8" text-anchor="middle">T1547.001 | Sigma</text>
+
+  <!-- Row 4: Discovery -->
+  <rect x="120" y="272" width="350" height="55" fill="#2980b9" rx="2"/>
+  <text x="295" y="296" font-size="10" font-weight="bold" fill="white" text-anchor="middle">Net User / Localgroup Enumeration</text>
+  <text x="295" y="310" font-size="9" fill="#d6eaf8" text-anchor="middle">T1087.001 | Sigma</text>
+
+  <!-- Row 5: Lateral Movement -->
+  <rect x="120" y="347" width="350" height="60" fill="#1a5276" rx="2"/>
+  <text x="295" y="371" font-size="10" font-weight="bold" fill="white" text-anchor="middle">WMI Lateral Movement</text>
+  <text x="295" y="385" font-size="9" fill="#aed6f1" text-anchor="middle">T1021.006 | Sigma</text>
+
+  <!-- Legend -->
+  <rect x="650" y="280" width="12" height="12" fill="#1a5276" rx="1"/>
+  <text x="667" y="290" font-size="9" fill="#333">Sigma + KQL/SPL coverage</text>
+  <rect x="650" y="300" width="12" height="12" fill="#2980b9" rx="1"/>
+  <text x="667" y="310" font-size="9" fill="#333">Sigma only</text>
+  <rect x="650" y="320" width="12" height="12" fill="#c0392b" rx="1"/>
+  <text x="667" y="330" font-size="9" fill="#333">Multi-format (all 3)</text>
+
+</svg>

@@ -1,0 +1,22 @@
+// T1110.001 - RDP Brute Force Detection
+// Detects a high number of failed RDP logon attempts from a single source
+// Triage: Check source IP, whether any logon succeeded, and whether it is an internal or external address
+
+SecurityEvent
+| where EventID == 4625
+| where LogonType == 10  // RemoteInteractive = RDP
+| where TimeGenerated > ago(10m)
+| summarize
+    FailedAttempts = count(),
+    UniqueAccounts = dcount(TargetAccount),
+    FirstSeen = min(TimeGenerated),
+    LastSeen = max(TimeGenerated)
+    by IpAddress, Computer
+| where FailedAttempts > 15
+| extend RiskScore = case(
+    UniqueAccounts > 5, "High - likely password spraying",
+    FailedAttempts > 50, "High - likely brute force",
+    "Medium - investigate"
+)
+| project IpAddress, Computer, FailedAttempts, UniqueAccounts, RiskScore, FirstSeen, LastSeen
+| order by FailedAttempts desc

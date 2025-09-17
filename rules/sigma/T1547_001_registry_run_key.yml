@@ -1,0 +1,38 @@
+title: Suspicious Registry Run Key Modification
+id: 0d7105a3-d1b9-4787-b6aa-b458766abff9
+status: test
+description: >
+    Detects writes to common registry Run keys used for persistence.
+    Attackers add entries here so their malware survives reboots.
+    These keys are also used by legitimate software so context matters.
+references:
+    - https://attack.mitre.org/techniques/T1547/001/
+author: NourKhalil0
+date: 2025/09/19
+tags:
+    - attack.persistence
+    - attack.t1547.001
+logsource:
+    category: registry_set
+    product: windows
+detection:
+    selection:
+        TargetObject|contains:
+            - '\SOFTWARE\Microsoft\Windows\CurrentVersion\Run'
+            - '\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce'
+            - '\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run'
+    filter_legit:
+        Image|contains:
+            - '\AppData\Local\Programs\Microsoft VS Code\Code.exe'
+            - 'OneDrive.exe'
+            - 'Teams.exe'
+    condition: selection and not filter_legit
+falsepositives:
+    - Legitimate software installers (very common)
+    - OneDrive, Teams, Slack and similar apps
+level: low
+# Triage notes:
+# 1. What is the value data pointing to? Does the path exist on disk?
+# 2. Is the binary signed? Check the signature
+# 3. Is the file in an unusual location like temp or AppData/Roaming?
+# 4. Correlate with recent process creation or file write events
