@@ -1,0 +1,17 @@
+// T1059.001 - PowerShell Encoded Command Execution
+// Detects PowerShell launched with encoded command arguments
+// Triage: Decode the base64 payload, check parent process, check user account
+
+SecurityEvent
+| where EventID == 4688
+| where NewProcessName endswith "powershell.exe"
+| where CommandLine has_any ("-EncodedCommand", "-enc ", " -EC ", "-eNc")
+| project
+    TimeGenerated,
+    Computer,
+    Account,
+    CommandLine,
+    ParentProcessName,
+    NewProcessName
+| extend Base64Payload = extract(@"(?i)(?:-enc|-EncodedCommand|-EC)\s+([A-Za-z0-9+/=]+)", 1, CommandLine)
+| order by TimeGenerated desc

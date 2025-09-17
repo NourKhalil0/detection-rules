@@ -1,0 +1,34 @@
+title: Base64 Encoded PowerShell via cmd.exe
+id: c5209fbf-8a24-48fc-9d93-3fe349a5c37b
+status: test
+description: >
+    Detects cmd.exe spawning PowerShell with a base64 encoded payload.
+    This is a common obfuscation technique used in phishing macros and
+    initial access payloads to hide the actual command from simple string inspection.
+references:
+    - https://attack.mitre.org/techniques/T1027/
+author: NourKhalil0
+date: 2025/09/21
+tags:
+    - attack.defense_evasion
+    - attack.t1027
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        ParentImage|endswith: '\cmd.exe'
+        Image|endswith: '\powershell.exe'
+        CommandLine|contains:
+            - '-enc'
+            - '-EncodedCommand'
+    condition: selection
+falsepositives:
+    - Some legitimate deployment scripts
+    - SCCM and similar management platforms
+level: high
+# Triage notes:
+# 1. Decode the base64 - this is the most important first step
+# 2. What spawned cmd.exe? Office, browser, or explorer are red flags
+# 3. Does the decoded payload contain download cradles or shellcode loading?
+# 4. High-fidelity rule - few legitimate reasons for this pattern

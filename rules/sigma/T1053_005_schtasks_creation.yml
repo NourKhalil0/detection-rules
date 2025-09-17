@@ -1,0 +1,42 @@
+title: Suspicious Scheduled Task Created via schtasks.exe
+id: 409feace-20cd-4e86-8ce1-78c26eefe106
+status: test
+description: >
+    Detects creation of scheduled tasks using schtasks.exe with flags commonly
+    used by attackers for persistence. Legitimate scheduled tasks are usually
+    created by installers or Group Policy, not by interactive users or scripts.
+references:
+    - https://attack.mitre.org/techniques/T1053/005/
+author: NourKhalil0
+date: 2025/09/18
+tags:
+    - attack.persistence
+    - attack.t1053.005
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        Image|endswith: '\schtasks.exe'
+        CommandLine|contains:
+            - '/create'
+            - '-create'
+    suspicious_indicators:
+        CommandLine|contains:
+            - 'powershell'
+            - 'cmd.exe /c'
+            - 'wscript'
+            - 'cscript'
+            - 'mshta'
+            - 'rundll32'
+    condition: selection and suspicious_indicators
+falsepositives:
+    - Software installers creating legitimate scheduled tasks
+    - Admin scripts for maintenance
+    - SCCM or other management tools
+level: medium
+# Triage notes:
+# 1. What is the task name and action? Check /tn and /tr arguments
+# 2. Who created it? System-created tasks are usually fine, user-created needs review
+# 3. When does it run? At login or at startup with high privileges is more concerning
+# 4. Does the task command point to a temp folder or an unusual path?
