@@ -1,0 +1,36 @@
+title: PowerShell Encoded Command Execution
+id: 2838c9c9-360e-4aa7-a631-cb07e87f0478
+status: test
+description: >
+    Detects execution of PowerShell with encoded command arguments.
+    Attackers commonly use -EncodedCommand to bypass simple string-based detections
+    and hide the true intent of their scripts.
+references:
+    - https://attack.mitre.org/techniques/T1059/001/
+    - https://ss64.com/ps/powershell.html
+author: NourKhalil0
+date: 2025/09/17
+tags:
+    - attack.execution
+    - attack.t1059.001
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        Image|endswith: '\powershell.exe'
+        CommandLine|contains:
+            - '-EncodedCommand'
+            - '-enc '
+            - ' -EC '
+            - '-eNc'
+    condition: selection
+falsepositives:
+    - Legitimate admin scripts and tools that use encoded commands (SCCM, some AV products)
+    - Check if the parent process and user account are expected
+level: medium
+# Triage notes:
+# 1. Decode the base64 payload and review the actual command
+# 2. Check the parent process - Office apps or browser spawning PS is suspicious
+# 3. Check if the user account would normally run PowerShell
+# 4. If decoded content contacts external IPs or drops files, escalate immediately
