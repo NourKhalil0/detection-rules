@@ -1,0 +1,42 @@
+title: LSASS Memory Access - Credential Dumping
+id: 50124460-654a-42e1-9400-df0748fdc5dd
+status: test
+description: >
+    Detects process access to lsass.exe with access rights commonly used for
+    credential dumping. Tools like Mimikatz, ProcDump, and Task Manager can all
+    trigger this, so context is important when triaging.
+references:
+    - https://attack.mitre.org/techniques/T1003/001/
+author: NourKhalil0
+date: 2025/09/17
+tags:
+    - attack.credential_access
+    - attack.t1003.001
+logsource:
+    product: windows
+    category: process_access
+detection:
+    selection:
+        TargetImage|endswith: '\lsass.exe'
+        GrantedAccess|contains:
+            - '0x1010'
+            - '0x1410'
+            - '0x1438'
+            - '0x143a'
+            - '0x1fffff'
+    filter_legit:
+        SourceImage|contains:
+            - '\MsMpEng.exe'
+            - '\csrss.exe'
+            - '\wininit.exe'
+    condition: selection and not filter_legit
+falsepositives:
+    - Security software (AV, EDR agents)
+    - Windows components like csrss.exe and wininit.exe
+    - Task Manager if an admin opens it on a DC (high privilege environment)
+level: high
+# Triage notes:
+# 1. Identify the source process - is it a known security tool or something unexpected?
+# 2. Check when and who ran the source process
+# 3. Look for follow-up activity like new files dropped or new connections
+# 4. Cross-reference with any concurrent 4624 logon events for pass-the-hash indicators
