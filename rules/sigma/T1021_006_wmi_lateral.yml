@@ -1,0 +1,33 @@
+title: WMI Used for Lateral Movement
+id: 913456c7-4799-4f86-b055-92cc77ecbb57
+status: test
+description: >
+    Detects use of wmic.exe or WMI invocations that include remote hosts,
+    which is a common lateral movement technique. WMI allows remote command
+    execution and is often used because it is a built-in Windows tool.
+references:
+    - https://attack.mitre.org/techniques/T1021/006/
+author: NourKhalil0
+date: 2025/09/22
+tags:
+    - attack.lateral_movement
+    - attack.t1021.006
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        Image|endswith: '\wmic.exe'
+        CommandLine|contains:
+            - '/node:'
+            - 'process call create'
+    condition: selection
+falsepositives:
+    - Legitimate remote admin scripts using WMI
+    - Monitoring tools that query remote systems via WMI
+level: medium
+# Triage notes:
+# 1. What is the target node? Is it a server, DC, or another workstation?
+# 2. What command is being executed remotely?
+# 3. Is the source user account one that should be doing remote admin?
+# 4. Check the target host for corresponding process creation events
