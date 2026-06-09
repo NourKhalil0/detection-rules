@@ -1,0 +1,17 @@
+// T1003.001 - LSASS Access for Credential Dumping
+// Detects process access events targeting lsass.exe
+// Requires Sysmon event ID 10 forwarded to Sentinel
+// Triage: Identify source process, check if it is a known security tool
+
+Event
+| where Source == "Microsoft-Windows-Sysmon"
+| where EventID == 10
+| extend
+    SourceImage = tostring(extractjson("$.SourceImage", EventData)),
+    TargetImage = tostring(extractjson("$.TargetImage", EventData)),
+    GrantedAccess = tostring(extractjson("$.GrantedAccess", EventData))
+| where TargetImage endswith "lsass.exe"
+| where GrantedAccess in ("0x1010", "0x1410", "0x1438", "0x1fffff")
+| where SourceImage !endswith "MsMpEng.exe"
+| project TimeGenerated, Computer, SourceImage, TargetImage, GrantedAccess
+| order by TimeGenerated desc
