@@ -1,0 +1,15 @@
+// T1053.005 - Suspicious Scheduled Task Creation
+// Looks for schtasks.exe creating tasks that call scripting engines
+// Triage: Review the task name, command, and who created it
+
+SecurityEvent
+| where EventID == 4688
+| where NewProcessName endswith "schtasks.exe"
+| where CommandLine has "/create"
+| where CommandLine has_any ("powershell", "cmd.exe /c", "wscript", "cscript", "mshta", "rundll32")
+| project
+    TimeGenerated,
+    Computer,
+    Account,
+    CommandLine
+| order by TimeGenerated desc
