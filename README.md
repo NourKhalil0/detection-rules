@@ -13,3 +13,6 @@ detection-rules/
     kql/
     spl/
 ```
+
+## Microsoft Sentinel Queries
+KQL hunting queries targeting DeviceProcessEvents and SecurityEvent telemetry.
