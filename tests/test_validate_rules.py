@@ -50,5 +50,11 @@ class TestRuleValidator(unittest.TestCase):
         finally:
             os.unlink(fname)
 
+    def test_process_injection_rule_schema(self):
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        rule_path = os.path.join(base_dir, "rules", "sigma", "T1055_001_process_injection.yml")
+        errors = validate_rule_file(rule_path)
+        self.assertEqual(errors, [])
+
 if __name__ == '__main__':
     unittest.main()
