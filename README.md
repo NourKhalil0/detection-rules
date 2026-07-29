@@ -16,3 +16,5 @@ detection-rules/
 
 ## Microsoft Sentinel Queries
 KQL hunting queries targeting DeviceProcessEvents and SecurityEvent telemetry.
+
+- Added T1055.001 process injection rule.
