@@ -1,0 +1,5 @@
+// Detect anomalous service installation commands
+DeviceProcessEvents
+| where Timestamp > ago(7d)
+| where FileName =~ "sc.exe" and ProcessCommandLine has "create"
+| project Timestamp, DeviceName, AccountName, ProcessCommandLine, InitiatingProcessFileName
