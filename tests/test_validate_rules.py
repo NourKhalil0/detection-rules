@@ -56,5 +56,11 @@ class TestRuleValidator(unittest.TestCase):
         errors = validate_rule_file(rule_path)
         self.assertEqual(errors, [])
 
+    def test_service_execution_rule_schema(self):
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        rule_path = os.path.join(base_dir, "rules", "sigma", "T1569_002_service_execution.yml")
+        errors = validate_rule_file(rule_path)
+        self.assertEqual(errors, [])
+
 if __name__ == '__main__':
     unittest.main()
