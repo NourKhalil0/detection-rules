@@ -1,0 +1,22 @@
+title: Service Execution via SC.exe
+id: 6b7c8d9e-0f1a-2b3c-4d5e-6f7a8b9c0d1e
+status: stable
+description: Detects service creation and configuration changes via sc.exe command line
+author: Nour Mo
+references:
+  - https://attack.mitre.org/techniques/T1569/002/
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith: '\sc.exe'
+    CommandLine|contains:
+      - 'create'
+      - 'config'
+  condition: selection
+level: medium
+tags:
+  - attack.execution
+  - attack.persistence
+  - attack.t1569.002
