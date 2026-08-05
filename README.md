@@ -18,3 +18,5 @@ detection-rules/
 KQL hunting queries targeting DeviceProcessEvents and SecurityEvent telemetry.
 
 - Added T1055.001 process injection rule.
+
+- Added T1569.002 service execution detection.
