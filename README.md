@@ -20,3 +20,5 @@ KQL hunting queries targeting DeviceProcessEvents and SecurityEvent telemetry.
 - Added T1055.001 process injection rule.
 
 - Added T1569.002 service execution detection.
+
+- Added T1003.002 SAM dumping rule in Sigma and SPL.
