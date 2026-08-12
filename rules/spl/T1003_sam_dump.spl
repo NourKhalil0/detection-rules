@@ -1,0 +1,3 @@
+index=windows sourcetype=WinEventLog:Security EventCode=4688
+| where like(lower(CommandLine), "%reg%save%sam%")
+| table _time host user ProcessName CommandLine
