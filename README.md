@@ -24,3 +24,10 @@ KQL hunting queries targeting DeviceProcessEvents and SecurityEvent telemetry.
 - Added T1003.002 SAM dumping rule in Sigma and SPL.
 
 <!-- Mid-August verification complete -->
+
+## How to Use the Sigma Rules
+Convert to your SIEM format using sigma-cli:
+```bash
+sigma convert -t splunk rules/sigma/
+sigma convert -t microsoft365defender rules/sigma/
+```
