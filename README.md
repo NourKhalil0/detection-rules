@@ -31,3 +31,6 @@ Convert to your SIEM format using sigma-cli:
 sigma convert -t splunk rules/sigma/
 sigma convert -t microsoft365defender rules/sigma/
 ```
+
+- Added T1071.004 DNS tunneling rule.
+- Added T1041 C2 exfiltration rule.
