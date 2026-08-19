@@ -1,0 +1,20 @@
+title: High Volume Data Exfiltration over C2 Channel
+id: 9e0f1a2b-3c4d-5e6f-7a8b-9c0d1e2f3a4b
+status: experimental
+description: Detects anomalous outbound network traffic volume to suspected external C2 IP addresses
+author: Nour Mo
+references:
+  - https://attack.mitre.org/techniques/T1041/
+logsource:
+  category: network_connection
+  product: windows
+detection:
+  selection:
+    InitiatingProcessFileName|endswith:
+      - '\powershell.exe'
+      - '\rundll32.exe'
+  condition: selection
+level: medium
+tags:
+  - attack.exfiltration
+  - attack.t1041
