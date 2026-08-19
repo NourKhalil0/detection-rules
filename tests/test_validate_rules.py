@@ -68,5 +68,11 @@ class TestRuleValidator(unittest.TestCase):
         errors = validate_rule_file(rule_path)
         self.assertEqual(errors, [])
 
+    def test_dns_tunneling_rule_schema(self):
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        rule_path = os.path.join(base_dir, "rules", "sigma", "T1071_004_dns_tunneling.yml")
+        errors = validate_rule_file(rule_path)
+        self.assertEqual(errors, [])
+
 if __name__ == '__main__':
     unittest.main()
