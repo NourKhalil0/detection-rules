@@ -1,0 +1,18 @@
+title: Suspicious DNS Query Length (Tunneling)
+id: 8d9e0f1a-2b3c-4d5e-6f7a-8b9c0d1e2f3a
+status: stable
+description: Detects unusually long DNS query names characteristic of DNS tunneling protocols
+author: Nour Mo
+references:
+  - https://attack.mitre.org/techniques/T1071/004/
+logsource:
+  category: dns_query
+  product: windows
+detection:
+  selection:
+    QueryLength|gt: 60
+  condition: selection
+level: high
+tags:
+  - attack.command_and_control
+  - attack.t1071.004
