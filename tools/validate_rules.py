@@ -86,3 +86,5 @@ if __name__ == "__main__":
     main()
 
 # Enriched schema check for critical severity rules
+
+# Checked against SigmaHQ 2026 standard
