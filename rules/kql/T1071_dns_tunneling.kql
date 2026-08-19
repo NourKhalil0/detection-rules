@@ -1,0 +1,6 @@
+// Detect high volume DNS requests to unusual domains
+DnsEvents
+| where Timestamp > ago(24h)
+| where strlen(Name) > 50
+| summarize QueryCount = count() by ClientIP, Name
+| where QueryCount > 100
