@@ -34,3 +34,5 @@ sigma convert -t microsoft365defender rules/sigma/
 
 - Added T1071.004 DNS tunneling rule.
 - Added T1041 C2 exfiltration rule.
+
+- Added T1486 Data Encrypted for Impact rule.
