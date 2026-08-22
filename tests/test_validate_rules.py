@@ -74,5 +74,11 @@ class TestRuleValidator(unittest.TestCase):
         errors = validate_rule_file(rule_path)
         self.assertEqual(errors, [])
 
+    def test_ransomware_rule_schema(self):
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        rule_path = os.path.join(base_dir, "rules", "sigma", "T1486_data_encrypted_for_impact.yml")
+        errors = validate_rule_file(rule_path)
+        self.assertEqual(errors, [])
+
 if __name__ == '__main__':
     unittest.main()
