@@ -1,0 +1,21 @@
+title: Ransomware Rapid File Modification Burst
+id: 0f1a2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c
+status: stable
+description: Detects high-frequency file modifications and renames indicating ransomware activity
+author: Nour Mo
+references:
+  - https://attack.mitre.org/techniques/T1486/
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    TargetFilename|endswith:
+      - '.locked'
+      - '.crypto'
+      - '.enc'
+  condition: selection
+level: critical
+tags:
+  - attack.impact
+  - attack.t1486
