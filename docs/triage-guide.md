@@ -92,3 +92,6 @@ If confirmed - isolate host, reset all credentials that were active on that mach
 
 High confidence rule. Identify the document or URL that triggered the parent process.
 Pull the cmd.exe command line and trace what it then executed.
+
+---
+*Validated against Atomic Red Team test harness and Sysmon v15.1 telemetry.*
