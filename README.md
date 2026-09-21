@@ -70,3 +70,7 @@ Full triage notes in [docs/triage-guide.md](docs/triage-guide.md).
 - MITRE ATT&CK - https://attack.mitre.org
 - Microsoft Sentinel - https://learn.microsoft.com/en-us/azure/sentinel
 - Wazuh - https://wazuh.com
+
+
+---
+*Maintained by Nour Mo - Detection Engineering Lab*
