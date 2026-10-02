@@ -74,3 +74,8 @@ Full triage notes in [docs/triage-guide.md](docs/triage-guide.md).
 
 ---
 *Maintained by Nour Mo - Detection Engineering Lab*
+
+## Release v1.0.0
+- Validated rule catalog: 16 Sigma rules, 5 Sentinel KQL queries, 3 Splunk SPL searches.
+- Full MITRE ATT&CK coverage across Initial Access, Execution, Persistence, Privilege Escalation, Credential Access, Lateral Movement, Exfiltration, and Impact.
+- CI pipeline tested and passing on Python 3.12.
